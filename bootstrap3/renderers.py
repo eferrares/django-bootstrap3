@@ -436,8 +436,8 @@ class FieldRenderer(BaseRenderer):
             html = self.fix_date_select_input(html)
         elif isinstance(self.widget, ClearableFileInput):
             html = self.fix_clearable_file_input(html)
-        elif isinstance(self.widget, CheckboxInput):
-            html = self.put_inside_label(html)
+        # elif isinstance(self.widget, CheckboxInput):
+        #     html = self.put_inside_label(html)
         return html
 
     def wrap_widget(self, html):
