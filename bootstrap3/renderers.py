@@ -390,15 +390,20 @@ class FieldRenderer(BaseRenderer):
         return html
 
     def put_inside_label(self, html):
-        content = '{field} {label}'.format(
-            field=html,
+        content = '{label}'.format(
             label=self.label,
         )
-        return render_label(
+        label = render_label(
             content=mark_safe(content),
             label_for=self.field.id_for_label,
             label_title=escape(strip_tags(self.field_help))
         )
+
+        content = '{field} {label}'.format(
+            field=html,
+            label=label,
+        )
+        return content
 
     def fix_date_select_input(self, html):
         div1 = '<div class="col-xs-4">'
@@ -436,8 +441,8 @@ class FieldRenderer(BaseRenderer):
             html = self.fix_date_select_input(html)
         elif isinstance(self.widget, ClearableFileInput):
             html = self.fix_clearable_file_input(html)
-        # elif isinstance(self.widget, CheckboxInput):
-        #     html = self.put_inside_label(html)
+        elif isinstance(self.widget, CheckboxInput):
+            html = self.put_inside_label(html)
         return html
 
     def wrap_widget(self, html):
